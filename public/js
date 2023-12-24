@@ -1,0 +1,31 @@
+```javascript
+// public/js/main.js
+
+// Function to fetch environment details from the server
+async function fetchEnvironmentDetails() {
+    try {
+        const response = await fetch('/api/environment');
+        const environment = await response.json();
+        // TODO: Update the UI based on the environment details
+    } catch (error) {
+        console.error(`Error in fetchEnvironmentDetails: ${error.message}`);
+    }
+}
+
+// Function to fetch user details from the server
+async function fetchUserDetails() {
+    try {
+        const response = await fetch('/api/user');
+        const user = await response.json();
+        // TODO: Update the UI based on the user details
+    } catch (error) {
+        console.error(`Error in fetchUserDetails: ${error.message}`);
+    }
+}
+
+// Call these functions when the page loads
+window.onload = function() {
+    fetchEnvironmentDetails();
+    fetchUserDetails();
+};
+```

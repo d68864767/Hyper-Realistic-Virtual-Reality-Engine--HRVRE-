@@ -1,0 +1,40 @@
+```javascript
+// test/integrationTests/userEnvironmentInteraction.test.js
+
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../../src/app');
+const userService = require('../../src/services/userService');
+const environmentService = require('../../src/services/environmentService');
+
+chai.use(chaiHttp);
+const { expect } = chai;
+
+describe('Integration Test for User and Environment Interaction', () => {
+    let user;
+    let environment;
+
+    before(async () => {
+        // Setup: create a user and an environment
+        user = await userService.createUser({ /* user data */ });
+        environment = await environmentService.createEnvironment({ /* environment data */ });
+    });
+
+    it('should allow a user to enter an environment', async () => {
+        const res = await chai.request(app)
+            .post(`/api/users/${user.id}/enter-environment`)
+            .send({ environmentId: environment.id });
+
+        expect(res.status).to.equal(200);
+        expect(res.body.message).to.equal('User has entered the environment successfully');
+    });
+
+    // Add more integration tests as needed
+
+    after(async () => {
+        // Teardown: delete the user and the environment
+        await userService.deleteUser(user.id);
+        await environmentService.deleteEnvironment(environment.id);
+    });
+});
+```

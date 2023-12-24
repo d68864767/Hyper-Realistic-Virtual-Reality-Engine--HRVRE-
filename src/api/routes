@@ -1,0 +1,17 @@
+```javascript
+// src/api/routes/index.js
+
+const express = require('express');
+const router = express.Router();
+
+const environmentController = require('../controllers/environmentController');
+const userController = require('../controllers/userController');
+
+// Environment routes
+router.use('/environment', environmentController);
+
+// User routes
+router.use('/user', userController);
+
+module.exports = router;
+```
